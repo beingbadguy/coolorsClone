@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
+import { IoMdHeart } from "react-icons/io";
+import { IoIosAdd } from "react-icons/io";
+import { IoCloseOutline } from "react-icons/io5";
 
 const Generate = () => {
   const [colors, setColors] = useState([
     "#FF671F",
-    "#FFFFFF",
+    "#03F3D4",
     "#046A38",
     "#06038D",
   ]);
   const [display, setDisplay] = useState(null);
+  const [heart, setHeart] = useState(null);
   const [clk, setClick] = useState(null);
   const colorGenerator = () => {
     setClick(null);
@@ -32,6 +36,15 @@ const Generate = () => {
     // console.table(color1, color2, color3, color4);
     setColors([color1, color2, color3, color4]);
   };
+  const singleGenerater = () => {
+    const letters = "0123456789ABCDEF";
+    let color = "#";
+
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    setColors([...colors, color]);
+  };
 
   const [copySuccess, setCopySuccess] = useState("");
 
@@ -49,6 +62,7 @@ const Generate = () => {
     setClick(i);
     setDisplay("Color copied to clipboard");
   };
+  console.log(colors);
 
   useEffect(() => {
     document.addEventListener("keypress", (e) => {
@@ -59,12 +73,16 @@ const Generate = () => {
   }, []);
 
   return (
-    <div className="fixed w-full select-none">
+    <div className="md:fixed w-full  md:select-none">
       <h1 className="px-4 py-4 font-medium  hidden md:block">
         Press the spacebar to generate color palletes!
       </h1>
       <div
-        className="grid grid-cols-1 md:grid-cols-4  w-[100%]"
+        className={`grid grid-cols-1 ${
+          colors.length <= 12
+            ? `md:grid-cols-${colors.length}`
+            : "md:grid-cols-4"
+        }  w-[100%]  `}
         onKeyUp={(e) => {
           colorFunction(e);
         }}
@@ -73,22 +91,67 @@ const Generate = () => {
           colors?.map((_, i) => (
             <div
               key={i}
-              onClick={() => {
-                copyText(i);
+              onMouseEnter={() => {
+                setHeart(i);
               }}
+              onMouseLeave={() => {
+                setHeart(null);
+              }}
+              className="relative "
             >
               <div
-                className={`bg-[${_}]  min-h-[19vh] md:min-h-[100vh] cursor-pointer flex flex-col justify-center items-center font-bold`}
+                className={`bg-[${_}]  min-h-[19vh] md:min-h-[100vh] cursor-pointer flex md:flex-col justify-between md:justify-center gap-4 md:gap-10 flex-row-reverse px-12 items-center font-bold`}
               >
+                <div
+                  className={` ${
+                    i === heart ? "block" : "md:hidden"
+                  }   flex items-center justify-center md:flex-col gap-4 sm:gap-10 md:gap-4`}
+                >
+                  <IoCloseOutline
+                    className={` ${
+                      colors.length < 2 ? "hidden" : "block"
+                    } text-3xl text-white  `}
+                    onClick={() => {
+                      if (colors.length > 1) {
+                        setColors(
+                          colors.slice(0, i).concat(colors.slice(i + 1))
+                        );
+                      }
+                    }}
+                  />
+                  <IoMdHeart
+                    className="text-3xl text-white hover:text-red-500"
+                    onClick={() => {
+                      alert("working...");
+                    }}
+                  />
+                  <IoIosAdd
+                    className="text-3xl text-white hidden md:block"
+                    onClick={() => {
+                      if (colors.length < 10) {
+                        singleGenerater();
+                      } else {
+                        setColors(["#FF671F", "#03F3D4", "#046A38", "#06038D"]);
+                      }
+                    }}
+                  />
+                </div>
                 <p
                   className={`${
                     i === clk ? "hidden" : "block"
                   } hover:scale-90 transition-all duration-300 text-white`}
+                  onClick={() => {
+                    copyText(i);
+                  }}
                 >
                   {_.replace("#", "")}
                 </p>
                 {
-                  <p className={`${i === clk ? "block" : "hidden"} text-white`}>
+                  <p
+                    className={`${
+                      i === clk ? "block" : "hidden"
+                    } text-white text-center`}
+                  >
                     {display}
                   </p>
                 }
@@ -96,9 +159,9 @@ const Generate = () => {
             </div>
           ))}
       </div>
-      <div className="flex justify-center items-center  ">
+      <div className="flex justify-start items-center fixed  w-full px-3   ">
         <h1
-          className="p-2  font-semibold mt-4    md:hidden w-[100px] border flex justify-center items-center  border-black  ml-2 rounded-md "
+          className="px-2 py-2  font-semibold mt-4    md:hidden w-[100px] border flex justify-center items-center  border-black  ml-2 rounded-md cursor-pointer"
           onClick={() => {
             colorGenerator();
           }}
