@@ -84,12 +84,12 @@ const App = () => {
                 <p
                   className={`${
                     i === clk ? "hidden" : "block"
-                  } hover:scale-90 transition-all duration-300 `}
+                  } hover:scale-90 transition-all duration-300 text-white`}
                 >
                   {_.replace("#", "")}
                 </p>
                 {
-                  <p className={`${i === clk ? "block" : "hidden"}`}>
+                  <p className={`${i === clk ? "block" : "hidden"} text-white`}>
                     {display}
                   </p>
                 }
