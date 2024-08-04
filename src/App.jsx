@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const App = () => {
   const [colors, setColors] = useState([
@@ -7,9 +8,6 @@ const App = () => {
     "#046A38",
     "#06038D",
   ]);
-  const [display, setDisplay] = useState(null);
-  const [clk, setClick] = useState(null);
-  const [lum, setLuminance] = useState(null);
   const colorGenerator = () => {
     setClick(null);
     setDisplay(null);
@@ -34,78 +32,42 @@ const App = () => {
     setColors([color1, color2, color3, color4]);
   };
 
-  const [copySuccess, setCopySuccess] = useState("");
-
-  const copyText = (i) => {
-    let text = colors[i];
-    navigator.clipboard
-      .writeText(text)
-      .then(() => {
-        setCopySuccess("Copied!");
-      })
-      .catch((err) => {
-        setCopySuccess("Failed to copy!");
-        console.error("Error copying to clipboard: ", err);
-      });
-    setClick(i);
-    setDisplay("Color copied to clipboard");
-  };
-
-  useEffect(() => {
-    document.addEventListener("keypress", (e) => {
-      if (e.code === "Space") {
-        colorGenerator();
-      }
-    });
-  }, []);
+  useEffect(() => {}, []);
 
   return (
-    <div className="fixed w-full select-none">
-      <h1 className="p-2 font-medium  hidden md:block">
-        Press the spacebar to generate color palletes!
-      </h1>
-      <div
-        className="grid grid-cols-1 md:grid-cols-4  w-[100%]"
-        onKeyUp={(e) => {
-          colorFunction(e);
-        }}
-      >
-        {colors &&
-          colors?.map((_, i) => (
-            <div
-              key={i}
-              onClick={() => {
-                copyText(i);
-              }}
-            >
+    <div className="flex justify-center items-center flex-col md:grid md:grid-cols-2 md:justify-between pt-10 select-none min-h-[90vh]">
+      <div className="overflow-hidden  relative  ">
+        <img
+          src="./mac.png"
+          alt=""
+          className="h-[20vh] md:h-[40vh] md:ml-20  overflow-hidden z-[999]"
+        />
+        {/* <div className=" grid grid-cols-4 w-[70%]  absolute left-9 z-0 ">
+          {colors &&
+            colors?.map((c, i) => (
               <div
-                className={`bg-[${_}] min-h-[21vh] md:min-h-[100vh] cursor-pointer flex flex-col justify-center items-center font-bold`}
-              >
-                <p
-                  className={`${
-                    i === clk ? "hidden" : "block"
-                  } hover:scale-90 transition-all duration-300 text-white`}
-                >
-                  {_.replace("#", "")}
-                </p>
-                {
-                  <p className={`${i === clk ? "block" : "hidden"} text-white`}>
-                    {display}
-                  </p>
-                }
-              </div>
-            </div>
-          ))}
+                key={i}
+                className={`bg-[${c}] h-[15vh] w-[12vh] mt-[-143px]`}
+              ></div>
+            ))}
+        </div> */}
       </div>
-      <div className="flex justify-center items-center  ">
-        <h1
-          className="p-2  font-semibold mt-4    md:hidden w-[100px] border flex justify-center items-center  border-black  ml-2 rounded-md "
-          onClick={() => {
-            colorGenerator();
-          }}
-        >
-          Generate
+      <div className="mx-10 mt-5 text-center grid grid-cols-1 md:text-left">
+        <h1 className="font-bold text-4xl md:text-5xl">
+          The Super fast color palettes generator!
         </h1>
+        <p className="mt-4 text-gray-500">
+          Generate beautiful color schemes instantly. Customize, save, and
+          export palettes for your design projects. Perfect for web designers,
+          graphic artists, and creatives seeking inspiration and harmony in
+          their work.
+        </p>
+        <Link
+          to={"/generate"}
+          className="bg-gradient-to-r from-[#4135a8]  via-[#2e1fd2] to-[#26268a]  text-white rounded-lg p-3   text-center w-[280px]  font-medium mt-4"
+        >
+          Start the generator
+        </Link>
       </div>
     </div>
   );
