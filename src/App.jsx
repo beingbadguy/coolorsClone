@@ -41,19 +41,19 @@ const App = () => {
   }, []);
 
   return (
-    <div className="flex justify-center items-center flex-col md:grid md:grid-cols-2 md:justify-between pt-10 select-none min-h-[90vh]">
+    <div className="flex justify-center items-center flex-col md:grid md:grid-cols-2 md:justify-between pt-10 select-none min-h-[90vh] ">
       <div className="overflow-hidden  relative flex justify-center items-center  ">
-        {/* <img
+        <img
           src="./mac.png"
           alt=""
-          className="h-[20vh] md:h-[40vh] md:ml-20  overflow-hidden z-[999]"
-        /> */}
-        <div className=" grid grid-cols-4 w-[70%] z-0   overflow-x-hidden rounded  ">
+          className="absolute h-[20vh] sm:h-[300px]   overflow-hidden z-[999]"
+        />
+        <div className=" grid grid-cols-4 w-[70%] md:w-[73%] lg:min-w-[50%] lg:max-w-[64%] lg:w-[53%] z-0   overflow-x-hidden rounded  ">
           {colors &&
             colors?.map((c, i) => (
               <div
                 key={i}
-                className={`bg-[${c}] h-[20vh] w-[12vh] sm:h-[35vh] sm:w-[20vh] md:h-[35vh] md:w-[20vh] `}
+                className={`bg-[${c}] h-[130px] w-[70px] sm:h-[280px] mb-[20px] sm:w-[19vh] md:h-[37vh] md:w-[13vh] overflow-hidden`}
               ></div>
             ))}
         </div>
@@ -72,8 +72,8 @@ const App = () => {
           to={"/generate"}
           className="text-white  w-full  text-center font-medium  flex justify-center items-center md:justify-start"
         >
-          <div className="mt-4 w-[80%] md:w-[60%] text-center  border p-2 bg-gradient-to-r from-[#4135a8]  via-[#2e1fd2] to-[#26268a] rounded">
-            Start the generator
+          <div className="mt-4 w-[80%] md:w-[60%] text-center  border p-3 bg-gradient-to-r from-[#4135a8]  via-[#2e1fd2] to-[#26268a] rounded">
+            Start the generator!
           </div>
         </Link>
       </div>
