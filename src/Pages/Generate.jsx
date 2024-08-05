@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { IoMdHeart } from "react-icons/io";
 import { IoIosAdd } from "react-icons/io";
 import { IoCloseOutline } from "react-icons/io5";
@@ -6,6 +6,7 @@ import { IoCopyOutline } from "react-icons/io5";
 import { Toaster, toast } from "sonner";
 
 const Generate = () => {
+  const divRef = useRef();
   const notify = () => toast.success("Color copied to clipboard!");
   const [colors, setColors] = useState([
     "#FF671F",
@@ -76,16 +77,17 @@ const Generate = () => {
   }, []);
 
   return (
-    <div className="md:fixed w-full  md:select-none">
+    <div className="md:fixed w-full  select-none">
       <h1 className="px-4 py-4 font-medium  hidden md:block">
         Press the spacebar to generate color palletes!
       </h1>
       <div
+        ref={divRef}
         className={`grid grid-cols-1 ${
           colors.length <= 12
             ? `md:grid-cols-${colors.length}`
             : "md:grid-cols-4"
-        }  w-[100%]  `}
+        }  w-[100%]    `}
         onKeyUp={(e) => {
           colorFunction(e);
         }}
@@ -147,7 +149,7 @@ const Generate = () => {
                   />
                 </div>
                 <p
-                  className={` hover:scale-90 transition-all duration-300 text-white`}
+                  className={` hover:scale-90 transition-all duration-300 text-white  sm:text-lg md:text-xl lg:text-2xl`}
                 >
                   {_.replace("#", "")}
                 </p>
