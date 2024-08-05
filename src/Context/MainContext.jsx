@@ -45,7 +45,7 @@ const MainProvider = ({ children }) => {
       await signOut(auth);
       localStorage.removeItem("cooloruser");
       setUserDetails(null);
-      window.location.reaload();
+      window.location.reload();
     } catch (error) {
       console.log(error.message);
     }
