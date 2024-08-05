@@ -2,20 +2,23 @@ import React, { useEffect, useState } from "react";
 import { IoMdHeart } from "react-icons/io";
 import { IoIosAdd } from "react-icons/io";
 import { IoCloseOutline } from "react-icons/io5";
+import { IoCopyOutline } from "react-icons/io5";
+import { Toaster, toast } from "sonner";
 
 const Generate = () => {
+  const notify = () => toast.success("Color copied to clipboard!");
   const [colors, setColors] = useState([
     "#FF671F",
     "#03F3D4",
     "#046A38",
     "#06038D",
   ]);
-  const [display, setDisplay] = useState(null);
+  // const [display, setDisplay] = useState(null);
   const [heart, setHeart] = useState(null);
   const [clk, setClick] = useState(null);
   const colorGenerator = () => {
     setClick(null);
-    setDisplay(null);
+    // setDisplay(null);
     const letters = "0123456789ABCDEF";
     let color1 = "#";
     for (let i = 0; i < 6; i++) {
@@ -60,7 +63,7 @@ const Generate = () => {
         console.error("Error copying to clipboard: ", err);
       });
     setClick(i);
-    setDisplay("Color copied to clipboard");
+    // setDisplay("Copied!");
   };
   console.log(colors);
 
@@ -100,17 +103,24 @@ const Generate = () => {
               className="relative "
             >
               <div
-                className={`bg-[${_}]  min-h-[19vh] md:min-h-[100vh] cursor-pointer flex md:flex-col justify-between md:justify-center gap-4 md:gap-10 flex-row-reverse px-12 items-center font-bold`}
+                className={`bg-[${_}]   min-h-[19vh] md:min-h-[100vh] cursor-pointer flex md:flex-col justify-between md:justify-center gap-4 md:gap-10 flex-row-reverse px-12 items-center font-bold`}
               >
                 <div
                   className={` ${
                     i === heart ? "block" : "md:hidden"
                   }   flex items-center justify-center md:flex-col gap-4 sm:gap-10 md:gap-4`}
                 >
+                  <IoCopyOutline
+                    className="cursor-pointer text-2xl text-white  hover:text-gray-500 transition-all duration-300 ease-in-out"
+                    onClick={() => {
+                      copyText(i);
+                      notify();
+                    }}
+                  />
                   <IoCloseOutline
                     className={` ${
                       colors.length < 2 ? "hidden" : "block"
-                    } text-3xl text-white  `}
+                    } text-3xl text-white  hover:text-red-500 transition-all duration-300 ease-in-out `}
                     onClick={() => {
                       if (colors.length > 1) {
                         setColors(
@@ -120,13 +130,13 @@ const Generate = () => {
                     }}
                   />
                   <IoMdHeart
-                    className="text-3xl text-white hover:text-red-500"
+                    className="text-3xl text-white hover:text-red-500   transition-all duration-300 ease-in-out"
                     onClick={() => {
                       alert("working...");
                     }}
                   />
                   <IoIosAdd
-                    className="text-3xl text-white hidden md:block"
+                    className="text-3xl text-white hidden md:block hover:text-gray-500 transition-all duration-300 ease-in-out"
                     onClick={() => {
                       if (colors.length < 10) {
                         singleGenerater();
@@ -137,16 +147,11 @@ const Generate = () => {
                   />
                 </div>
                 <p
-                  className={`${
-                    i === clk ? "hidden" : "block"
-                  } hover:scale-90 transition-all duration-300 text-white`}
-                  onClick={() => {
-                    copyText(i);
-                  }}
+                  className={` hover:scale-90 transition-all duration-300 text-white`}
                 >
                   {_.replace("#", "")}
                 </p>
-                {
+                {/* {
                   <p
                     className={`${
                       i === clk ? "block" : "hidden"
@@ -154,8 +159,9 @@ const Generate = () => {
                   >
                     {display}
                   </p>
-                }
+                } */}
               </div>
+              <Toaster richColors />
             </div>
           ))}
       </div>
