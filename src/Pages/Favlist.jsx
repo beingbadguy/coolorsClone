@@ -1,11 +1,17 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { MainContext } from "../Context/MainContext";
 import { useNavigate } from "react-router-dom";
 import { FaHome } from "react-icons/fa";
 
 const Favlist = () => {
   const { fav, userDetails } = useContext(MainContext);
+  console.log(fav);
   const navigate = useNavigate();
+  useEffect(() => {
+    if (userDetails) {
+    }
+  }, []);
+
   return (
     <div className="mt-4 flex flex-col justify-center ">
       <div className="mt-2 mb-10 text-3xl cursor-pointer flex items-center justify-center  ">
@@ -17,7 +23,7 @@ const Favlist = () => {
         />
       </div>
       {fav && fav.length < 1 ? (
-        <div className="text-center flex items-center gap-2">
+        <div className="text-center flex items-center justify-center gap-2">
           You do not have any color in favlist
           <img src="./monkey.png" alt="" className="h-4" />
         </div>
@@ -28,7 +34,7 @@ const Favlist = () => {
         className="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-5 gap-4  place-items-center
       "
       >
-        {userDetails &&
+        {fav &&
           fav.map((color, i) => (
             <div key={i} className="cursor-pointer">
               <div

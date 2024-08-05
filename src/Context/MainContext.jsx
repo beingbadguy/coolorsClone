@@ -8,7 +8,6 @@ import {
   getDocs,
   updateDoc,
 } from "firebase/firestore";
-import { useNavigate } from "react-router-dom";
 
 export const MainContext = createContext(null);
 
@@ -25,6 +24,8 @@ const MainProvider = ({ children }) => {
         const userDataSnap = await getDoc(userDataRef);
         if (userDataSnap.exists()) {
           setUserDetails(userDataSnap.data());
+          setFav(userDataSnap.data().favourites);
+
           localStorage.setItem(
             "cooloruser",
             JSON.stringify(userDataSnap.data())
