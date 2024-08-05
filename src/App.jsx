@@ -1,7 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { MainContext } from "./Context/MainContext";
+// const { hi } = useContext(MainContext);
 
 const App = () => {
+  // const { hi } = useContext(MainContext);
+
   const [colors, setColors] = useState([
     "#FF671F",
     "#FFFFFF",

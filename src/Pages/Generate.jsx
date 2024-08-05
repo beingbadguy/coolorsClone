@@ -1,13 +1,18 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { IoMdHeart } from "react-icons/io";
 import { IoIosAdd } from "react-icons/io";
 import { IoCloseOutline } from "react-icons/io5";
 import { IoCopyOutline } from "react-icons/io5";
 import { Toaster, toast } from "sonner";
+import { MainContext } from "../Context/MainContext";
+import { useNavigate } from "react-router-dom";
 
 const Generate = () => {
+  const { userDetails, addtoFav } = useContext(MainContext);
   const divRef = useRef();
+  const navigate = useNavigate();
   const notify = () => toast.success("Color copied to clipboard!");
+  const notifyadd = () => toast.success("Added to Favourites!");
   const [colors, setColors] = useState([
     "#FF671F",
     "#03F3D4",
@@ -78,9 +83,22 @@ const Generate = () => {
 
   return (
     <div className="md:fixed w-full  select-none">
-      <h1 className="px-4 py-4 font-medium  hidden md:block">
-        Press the spacebar to generate color palletes!
-      </h1>
+      <div className="flex items-center justify-between">
+        <h1 className="px-4 py-4 font-medium  hidden md:block">
+          Press the spacebar to generate color palletes!
+        </h1>
+        <IoMdHeart
+          className="hidden md:block text-3xl mx-4 text-blue-700 cursor-pointer  transition-all duration-300 ease-in-out"
+          onClick={() => {
+            if (userDetails && userDetails) {
+              navigate("/favlist");
+            } else {
+              navigate("/login");
+            }
+          }}
+        />
+      </div>
+
       <div
         ref={divRef}
         className={`grid grid-cols-1 ${
@@ -134,11 +152,15 @@ const Generate = () => {
                   <IoMdHeart
                     className="text-3xl text-white hover:text-red-500   transition-all duration-300 ease-in-out"
                     onClick={() => {
-                      alert("working...");
+                      if (userDetails && userDetails) {
+                        addtoFav(_);
+                        notifyadd();
+                      } else {
+                        navigate("/login");
+                      }
                     }}
                   />
-                  <IoIosAdd
-                    className="text-3xl text-white hidden md:block hover:text-gray-500 transition-all duration-300 ease-in-out"
+                  <div
                     onClick={() => {
                       if (colors.length < 10) {
                         singleGenerater();
@@ -146,10 +168,15 @@ const Generate = () => {
                         setColors(["#FF671F", "#03F3D4", "#046A38", "#06038D"]);
                       }
                     }}
-                  />
+                  >
+                    <IoIosAdd className="text-3xl text-white hidden md:block hover:text-gray-500 transition-all duration-300 ease-in-out" />
+                  </div>
                 </div>
                 <p
                   className={` hover:scale-90 transition-all duration-300 text-white  sm:text-lg md:text-xl lg:text-2xl`}
+                  onClick={() => {
+                    navigate(`/color/${_.replace("#", "")}`);
+                  }}
                 >
                   {_.replace("#", "")}
                 </p>
@@ -167,15 +194,25 @@ const Generate = () => {
             </div>
           ))}
       </div>
-      <div className="flex justify-start items-center fixed  w-full px-3   ">
+      <div className="flex justify-between items-center fixed  w-full px-3  mt-4  ">
         <h1
-          className="px-2 py-2  font-semibold mt-4    md:hidden w-[100px] border flex justify-center items-center  border-black  ml-2 rounded-md cursor-pointer hover:bg-gray-200 transition-all duration-300 ease-in-out  "
+          className="px-2 py-2  font-semibold    md:hidden w-[100px] border flex justify-center items-center  border-black  ml-2 rounded-md cursor-pointer hover:bg-gray-200 transition-all duration-300 ease-in-out  "
           onClick={() => {
             colorGenerator();
           }}
         >
           Generate
         </h1>
+        <IoMdHeart
+          className="block md:hidden text-3xl mx-4 text-blue-600 cursor-pointer  transition-all duration-300 ease-in-out"
+          onClick={() => {
+            if (userDetails && userDetails) {
+              navigate("/favlist");
+            } else {
+              navigate("/login");
+            }
+          }}
+        />
       </div>
     </div>
   );

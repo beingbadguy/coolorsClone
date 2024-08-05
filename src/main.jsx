@@ -8,6 +8,9 @@ import Layout from "./Layout/Layout.jsx";
 import Generate from "./Pages/Generate.jsx";
 import Login from "./Pages/Login.jsx";
 import Sign from "./Pages/Sign.jsx";
+import MainProvider from "./Context/MainContext.jsx";
+import SingleColor from "./Pages/SingleColor.jsx";
+import Favlist from "./Pages/Favlist.jsx";
 
 inject();
 
@@ -32,12 +35,22 @@ const router = createBrowserRouter([
         path: "/signup",
         element: <Sign />,
       },
+      {
+        path: "color/:color",
+        element: <SingleColor />,
+      },
+      {
+        path: "/favlist",
+        element: <Favlist />,
+      },
     ],
   },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <MainProvider>
+      <RouterProvider router={router} />
+    </MainProvider>
   </React.StrictMode>
 );
