@@ -41,8 +41,8 @@ const App = () => {
   }, []);
 
   return (
-    <div className="flex justify-center items-center flex-col md:grid md:grid-cols-2 md:justify-between pt-10 select-none min-h-[90vh] ">
-      <div className="overflow-hidden  relative flex justify-center items-center  ">
+    <div className="flex justify-center items-center flex-col md:grid md:grid-cols-2  md:justify-between pt-10 select-none min-h-[90vh] md:flex-row-reverse ">
+      <div className="overflow-hidden  relative flex justify-center items-center  md:order-2">
         <img
           src="./mac.png"
           alt=""

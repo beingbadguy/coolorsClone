@@ -66,7 +66,7 @@ const Generate = () => {
     setClick(i);
     // setDisplay("Copied!");
   };
-  console.log(colors);
+  // console.log(colors);
 
   useEffect(() => {
     document.addEventListener("keypress", (e) => {
@@ -87,7 +87,7 @@ const Generate = () => {
           colors.length <= 12
             ? `md:grid-cols-${colors.length}`
             : "md:grid-cols-4"
-        }  w-[100%]    `}
+        }  w-[100%]   h-[76vh] md:h-auto overflow-hidden md:overflow-none `}
         onKeyUp={(e) => {
           colorFunction(e);
         }}
@@ -102,10 +102,10 @@ const Generate = () => {
               onMouseLeave={() => {
                 setHeart(null);
               }}
-              className="relative "
+              className={`bg-[${_}]  relative  flex justify-center items-center  `}
             >
               <div
-                className={`bg-[${_}]   min-h-[19vh] md:min-h-[100vh] cursor-pointer flex md:flex-col justify-between md:justify-center gap-4 md:gap-10 flex-row-reverse px-12 items-center font-bold`}
+                className={`bg-[${_}] shadow-lg shadow-[${_}] md:min-w-[100%] h-[19vh] md:min-h-[100vh] cursor-pointer flex md:flex-col justify-between md:justify-center gap-32 md:gap-10 flex-row-reverse px-12 items-center font-bold`}
               >
                 <div
                   className={` ${
@@ -169,7 +169,7 @@ const Generate = () => {
       </div>
       <div className="flex justify-start items-center fixed  w-full px-3   ">
         <h1
-          className="px-2 py-2  font-semibold mt-4    md:hidden w-[100px] border flex justify-center items-center  border-black  ml-2 rounded-md cursor-pointer"
+          className="px-2 py-2  font-semibold mt-4    md:hidden w-[100px] border flex justify-center items-center  border-black  ml-2 rounded-md cursor-pointer hover:bg-gray-200 transition-all duration-300 ease-in-out  "
           onClick={() => {
             colorGenerator();
           }}
