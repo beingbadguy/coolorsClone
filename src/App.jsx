@@ -76,7 +76,7 @@ const App = () => {
           to={"/generate"}
           className="text-white  w-full  text-center font-medium  flex justify-center items-center md:justify-start"
         >
-          <div className="mt-4 w-[80%] md:w-[60%] text-center  border p-3 bg-gradient-to-r from-[#4135a8]  via-[#2e1fd2] to-[#26268a] rounded">
+          <div className="mt-4 w-[80%] md:w-[60%] text-center  border p-3 bg-blue-700 shadow-sm shadow-blue-400 rounded">
             Start the generator!
           </div>
         </Link>

@@ -88,7 +88,7 @@ const Generate = () => {
           Press the spacebar to generate color palletes!
         </h1>
         <IoMdHeart
-          className="hidden md:block text-3xl mx-4 text-blue-700 cursor-pointer  transition-all duration-300 ease-in-out"
+          className="hidden md:block text-3xl mx-4 text-pink-500 cursor-pointer  transition-all duration-300 ease-in-out"
           onClick={() => {
             if (userDetails && userDetails) {
               navigate("/favlist");
