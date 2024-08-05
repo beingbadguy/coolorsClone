@@ -5,7 +5,7 @@ import { FaHome } from "react-icons/fa";
 
 const Favlist = () => {
   const { fav, userDetails } = useContext(MainContext);
-  console.log(fav);
+  // console.log(fav);
   const navigate = useNavigate();
   useEffect(() => {
     if (userDetails) {
